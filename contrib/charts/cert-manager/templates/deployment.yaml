@@ -30,17 +30,17 @@ spec:
       serviceAccountName: {{ template "cert-manager.serviceAccountName" . }}
       containers:
         - name: cert-manager-dnsmasq
-                env:
-                - name: DNSMASQ_STUB
-                  value: "{{ .Values.dnsmasqStub }}"
-                image: "{{ .Values.dnsmasqImageRepository }}:{{ .Values.dnsmasqImageTag }}"
-                args:
-                  - --listen
-                  - "127.0.0.1:53"
-                  - --default-resolver
-                  - --append-search-domains
-                  - --hostsfile=/etc/hosts
-                  - --verbose
+          env:
+            - name: DNSMASQ_STUB
+              value: "{{ .Values.dnsmasqStub }}"
+          image: "{{ .Values.dnsmasqImageRepository }}:{{ .Values.dnsmasqImageTag }}"
+          args:
+            - --listen
+            - "127.0.0.1:53"
+            - --default-resolver
+            - --append-search-domains
+            - --hostsfile=/etc/hosts
+            - --verbose
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
